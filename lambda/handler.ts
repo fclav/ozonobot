@@ -1,5 +1,5 @@
 import {Interaction, InteractionCallbackType, InteractionCommandType, InteractionResponse, InteractionType} from './types';
-import {get_informal_ambito, Quote} from './price';
+import {get_informal_ambito, get_mep_ambito, get_oficial_ambito, get_turista_ambito, Quote} from './price';
 
 interface InteractionHandler {
     canProcess(interaction: Interaction): boolean;
@@ -46,11 +46,14 @@ export class Ping implements InteractionHandler {
 export class DollarQuote implements InteractionHandler {
     
     DOLAR_COMMAND_NAME = 'dolar'
-    quoteSources: [() => Promise<Quote>]
+    quoteSources: (() => Promise<Quote>)[]
 
     constructor() {
         this.quoteSources = [
-            () => get_informal_ambito("Dolar Blue")
+            () => get_oficial_ambito("Dolar Oficial"),
+            () => get_informal_ambito("Dolar Blue"),
+            () => get_mep_ambito("Dolar MEP"),
+            () => get_turista_ambito("Dolar Turista")
         ];
     }
 

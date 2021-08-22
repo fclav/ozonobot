@@ -32,6 +32,25 @@ function get_mock_dollar(): Quote {
 
 export async function get_informal_ambito(ticker: string): Promise<Quote> {
     const url = "https://mercados.ambito.com//dolar/informal/variacion";
+    return get_quote_ambito(ticker, url);
+}
+
+export async function get_oficial_ambito(ticker: string): Promise<Quote> {
+    const url = "https://mercados.ambito.com//dolar/oficial/variacion";
+    return get_quote_ambito(ticker, url);
+}
+
+export async function get_mep_ambito(ticker: string): Promise<Quote> {
+    const url = "https://mercados.ambito.com//dolarrava/mep/variacion";
+    return get_quote_ambito(ticker, url);
+}
+
+export async function get_turista_ambito(ticker: string): Promise<Quote> {
+    const url = "https://mercados.ambito.com//dolarturista/variacion";
+    return get_quote_ambito(ticker, url);
+}
+
+export async function get_quote_ambito(ticker: string, url: string) {
     return fetch(url)
         .then(response => {
             if (!response.ok) {
